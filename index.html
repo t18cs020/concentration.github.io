@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+
+<title>神経衰弱ゲーム</title>
+
+<script type="text/javascript" src="sample04.js"></script>
+
+<style>
+    #panel {
+        width: 250px;
+        height: 340px;
+        overflow: hidden;
+    }
+    
+    .card {
+        width: 60px;
+        height: 80px;
+        line-height: 80px;
+        border: 1px solid silver;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 26px;
+        font-weight: bold;
+        box-shadow: gray 2px 2px;
+        background: white;
+        float: left;
+        cursor: pointer;
+    }
+    /* 裏の状態 */
+    .back {
+        background-image: url('img/back.png');
+        background-size: 60px 80px;
+    }
+    /* 終了時 */
+    .finish {
+        opacity: 0;
+        cursor: default;
+    }
+    /* 経過秒数 */
+    #result {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    
+</style>
+</head>
+
+<body>
+
+<div id="panel"></div>
+
+<div id="result">経過秒数: </div>
+
+</body>
+</html>
