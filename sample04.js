@@ -1,5 +1,6 @@
 
 // グローバル
+
 // div要素を格納
 var cards = [];
 // 開始時間
@@ -14,12 +15,16 @@ var flgFirst = true;
 var cardFirst;
 // そろえた枚数
 var countUnit = 0;
+//　ペア数
+var pairs = 8;
+// 試行回数
+var countSelect = 0;
 
 window.onload = function(){
     // 数字格納 一時配列
     var arr = [];
-    
-    for (var i = 0; i < 8; i++){
+
+    for (var i = 0; i < pairs; i++){
         // ペアの数字を10組
         arr.push(i);
         arr.push(i);
@@ -31,7 +36,7 @@ window.onload = function(){
     var panel = document.getElementById('panel');
     
     // div要素作成
-    for (i = 0; i < 16; i++){
+    for (i = 0; i < 2*pairs; i++){
         var div = document.createElement('div');
         div.className = 'card back';
         div.index = i;
@@ -61,6 +66,7 @@ function shuffle(arr) {
     }
     return arr;
 }
+
 
 // クリック時の処理
 function turn(e){
@@ -118,7 +124,7 @@ function turn(e){
         
     // 2枚目の処理
     }else{
-        
+        countSelect++;
         // 数字が1枚目と一致する場合
         if (cardFirst.number == div.number){
             countUnit++;
@@ -147,7 +153,23 @@ function turn(e){
         }
         
         flgFirst = true;
+
     }  
+
+    if(countUnit == pairs){
+        var nowTime = new Date();
+        var elapsedTime = Math.floor((nowTime - startTime) / 1000);
+        var str = 'CLEAR! \nクリア時間は' + elapsedTime + '秒です。\n試行回数は'+ countSelect + '回です。\nもう一度プレイする場合は画面を更新してください。';
+        var result = confirm(str);
+        if(result) {
+            //はいを選んだときの処理
+            window.location.relord();
+        } else {
+            //いいえを選んだときの処理
+        }
+
+    }
+
 }
 
 // タイマー開始
@@ -155,13 +177,19 @@ function startTimer(){
     timer = setInterval(showSecond, 1000);
 }
 
-// 秒数表示
+// 詳細表示
 function showSecond(){
-
+    //残り時間
     var nowTime = new Date();
     var elapsedTime = Math.floor((nowTime - startTime) / 1000);
     var str = '経過秒数: ' + elapsedTime + '秒';
 
+    //試行回数
+    var str2 = '試行回数: ' + countSelect + '回';
+
+    //残りのペア数
+    var remaining = pairs-countUnit
+    var str3 = '残りペア数: ' + remaining + '個';
     var re = document.getElementById('result');
-    re.innerHTML = str;
+    re.innerHTML = str +'<br>'+ str2 +'<br>'+ str3;
 }
